@@ -16,12 +16,7 @@ export const LandingHero = () => {
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           <TypewriterComponent
             options={{
-              strings: [
-                "Chatbot.",
-                "Photo Generation.",
-                "Blog Writing.",
-                "Mail Writing."
-              ],
+              strings: ["To make Resume anonymous."],
               autoStart: true,
               loop: true,
             }}
@@ -29,11 +24,14 @@ export const LandingHero = () => {
         </div>
       </div>
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        Create content using AI 10x faster.
+        Make anonymous using AI now.
       </div>
       <div>
         <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-          <Button variant="premium" className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
+          <Button
+            variant="premium"
+            className="md:text-lg p-4 md:p-6 rounded-full font-semibold"
+          >
             Start Generating For Free
           </Button>
         </Link>
