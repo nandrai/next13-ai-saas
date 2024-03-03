@@ -7,11 +7,7 @@ import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 
-export const SubscriptionButton = ({
-  isPro = false
-}: {
-  isPro: boolean;
-}) => {
+export const SubscriptionButton = ({ isPro = false }: { isPro: boolean }) => {
   const [loading, setLoading] = useState(false);
 
   const onClick = async () => {
@@ -22,6 +18,8 @@ export const SubscriptionButton = ({
 
       window.location.href = response.data.url;
     } catch (error) {
+      console.log(error);
+
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
@@ -29,9 +27,13 @@ export const SubscriptionButton = ({
   };
 
   return (
-    <Button variant={isPro ? "default" : "premium"} disabled={loading} onClick={onClick} >
+    <Button
+      variant={isPro ? "default" : "premium"}
+      disabled={loading}
+      onClick={onClick}
+    >
       {isPro ? "Manage Subscription" : "Upgrade"}
       {!isPro && <Zap className="w-4 h-4 ml-2 fill-white" />}
     </Button>
-  )
+  );
 };

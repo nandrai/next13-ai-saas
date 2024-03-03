@@ -46,7 +46,7 @@ export async function GET() {
               name: "Resume.ai Pro",
               description: "Unlimited AI Generations"
             },
-            unit_amount: 2000,
+            unit_amount: 2999,
             recurring: {
               interval: "month"
             }
@@ -55,7 +55,8 @@ export async function GET() {
         },
       ],
       metadata: {
-        userId,
+        userId: userId,
+        subscriptionType: 'pro'
       },
     })
 
