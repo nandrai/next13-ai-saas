@@ -21,7 +21,7 @@ export const checkSubscription = async () => {
       stripeCustomerId: true,
       stripePriceId: true,
     },
-  })
+  });
 
   if (!userSubscription) {
     return false;
@@ -29,7 +29,42 @@ export const checkSubscription = async () => {
 
   const isValid =
     userSubscription.stripePriceId &&
-    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now()
+    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
+      Date.now();
 
   return !!isValid;
+};
+
+export const getLimit = async () => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return 5;
+  }
+
+  const userSubscription = await prismadb.userSubscription.findUnique({
+    where: {
+      userId: userId,
+    },
+    select: {
+      stripeSubscriptionId: true,
+      stripeCurrentPeriodEnd: true,
+      stripeCustomerId: true,
+      stripePriceId: true,
+      totalLimit: true,
+    },
+  });
+
+  if (!userSubscription) {
+    return 5;
+  }
+
+  const isValid =
+    userSubscription.stripePriceId &&
+    userSubscription.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS >
+      Date.now();
+
+  if (isValid) {
+    return userSubscription.totalLimit;
+  }
 };

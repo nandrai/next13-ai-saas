@@ -6,13 +6,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { SubscriptionButton } from "./subscription-button";
 
 export const FreeCounter = ({
   isPro = false,
   apiLimitCount = 0,
+  limit = 5,
 }: {
-  isPro: boolean,
-  apiLimitCount: number
+  isPro: boolean;
+  apiLimitCount: number;
+  limit: number;
 }) => {
   const [mounted, setMounted] = useState(false);
   const proModal = useProModal();
@@ -24,11 +27,10 @@ export const FreeCounter = ({
   if (!mounted) {
     return null;
   }
-  
 
-  if (isPro) {
-    return null;
-  }
+  // if (isPro) {
+  //   return null;
+  // }
 
   return (
     <div className="px-3">
@@ -36,16 +38,15 @@ export const FreeCounter = ({
         <CardContent className="py-6">
           <div className="text-center text-sm text-white mb-4 space-y-2">
             <p>
-              {apiLimitCount} / {MAX_FREE_COUNTS} Free Generations
+              {apiLimitCount} / {limit} {!isPro && "Free"} Generations
             </p>
-            <Progress className="h-3" value={(apiLimitCount / MAX_FREE_COUNTS) * 100} />
+            <Progress className="h-3" value={(apiLimitCount / limit) * 100} />
           </div>
-          <Button onClick={proModal.onOpen} variant="premium" className="w-full">
-            Upgrade
-            <Zap className="w-4 h-4 ml-2 fill-white" />
-          </Button>
+          <div className="flex justify-center">
+            <SubscriptionButton isPro={isPro} />
+          </div>
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};

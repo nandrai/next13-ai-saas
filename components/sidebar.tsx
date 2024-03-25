@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { FreeCounter } from "@/components/free-counter";
+import { number } from "zod";
 
 const poppins = Montserrat({ weight: "600", subsets: ["latin"] });
 
@@ -37,9 +38,11 @@ const routes = [
 export const Sidebar = ({
   apiLimitCount = 0,
   isPro = false,
+  limit = 5,
 }: {
   apiLimitCount: number;
   isPro: boolean;
+  limit: number;
 }) => {
   const pathname = usePathname();
 
@@ -74,7 +77,7 @@ export const Sidebar = ({
           ))}
         </div>
       </div>
-      <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} />
+      <FreeCounter apiLimitCount={apiLimitCount} isPro={isPro} limit={limit} />
     </div>
   );
 };
